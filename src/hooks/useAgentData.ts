@@ -10,8 +10,10 @@ export const useAgentData = () => {
     setLoading(true)
     setError(null)
     try {
-      const delay = Math.floor(Math.random() * 2000) + 1000
-      await new Promise((resolve) => setTimeout(resolve, delay))
+      if (import.meta.env.DEV) {
+        const delay = Math.floor(Math.random() * 2000) + 1000
+        await new Promise((resolve) => setTimeout(resolve, delay))
+      }
 
       const response = await fetch('/data.json')
       if (!response.ok) {

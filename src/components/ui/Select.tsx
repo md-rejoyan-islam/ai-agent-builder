@@ -50,6 +50,9 @@ const Select = ({ options, value, onChange, placeholder = 'Select...', label, id
       <button
         id={id}
         type="button"
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-controls={`${id}-listbox`}
         onClick={() => setOpen(prev => !prev)}
         className="group flex w-full items-center justify-between rounded-lg border border-surface-700/60 bg-surface-800/50 px-3 py-2.5 text-sm transition-all duration-150 hover:bg-surface-800/80 focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500/50"
       >
@@ -68,7 +71,11 @@ const Select = ({ options, value, onChange, placeholder = 'Select...', label, id
 
       {/* Dropdown */}
       {open && (
-        <div className="absolute z-50 mt-1.5 w-full rounded-lg border border-surface-700/60 bg-surface-900 shadow-xl shadow-black/30 overflow-hidden animate-in fade-in-0 zoom-in-95 duration-150">
+        <div 
+          id={`${id}-listbox`}
+          role="listbox"
+          className="absolute z-50 mt-1.5 w-full rounded-lg border border-surface-700/60 bg-surface-900 shadow-xl shadow-black/30 overflow-hidden animate-in fade-in-0 zoom-in-95 duration-150"
+        >
           <div className="max-h-56 overflow-y-auto py-1">
             {/* Empty / reset option */}
             <button

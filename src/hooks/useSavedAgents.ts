@@ -31,14 +31,23 @@ export const useSavedAgents = () => {
   }
 
   const deleteAgent = (indexToRemove: number) => {
-    const agentName = savedAgents[indexToRemove]?.name || 'Agent'
+    const targetAgent = savedAgents[indexToRemove]
+    const agentName = targetAgent?.name || 'Agent'
+    const normalizedAgentName = targetAgent
+      ? targetAgent.name.trim().toLowerCase()
+      : null
+
     toast(`Delete "${agentName}"?`, {
       description: 'This action cannot be undone.',
       action: {
         label: 'Delete',
         onClick: () => {
           setSavedAgents(prev => {
-            const updated = prev.filter((_, index) => index !== indexToRemove)
+            const updated = normalizedAgentName
+              ? prev.filter(
+                  a => a.name.trim().toLowerCase() !== normalizedAgentName
+                )
+              : prev
             localStorage.setItem('savedAgents', JSON.stringify(updated))
             return updated
           })

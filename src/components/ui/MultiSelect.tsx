@@ -97,11 +97,18 @@ const MultiSelect = ({
       )}
 
       {/* Trigger */}
-      <button
+      <div
         id={id}
-        type="button"
+        tabIndex={0}
+        role="button"
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            setOpen(prev => !prev);
+          }
+        }}
         onClick={() => setOpen(prev => !prev)}
-        className={`group flex w-full min-h-[42px] items-center rounded-lg border bg-surface-800/50 px-2 py-1.5 text-sm transition-all duration-150 hover:bg-surface-800/80 focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500/50 ${
+        className={`group cursor-pointer flex w-full min-h-[42px] items-center rounded-lg border bg-surface-800/50 px-2 py-1.5 text-sm transition-all duration-150 hover:bg-surface-800/80 focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500/50 ${
           open ? 'border-primary-500/50 ring-2 ring-primary-500/30' : 'border-surface-700/60'
         }`}
       >
@@ -169,7 +176,7 @@ const MultiSelect = ({
             </svg>
           </span>
         </div>
-      </button>
+      </div>
 
       {/* Dropdown */}
       {open && (

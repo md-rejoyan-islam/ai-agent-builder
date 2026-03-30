@@ -41,6 +41,26 @@ export const AgentProvider = ({ children }: { children: ReactNode }) => {
       return false
     }
 
+    if (!selectedProfile) {
+      toast.error('Please select a profile for your agent.')
+      return false
+    }
+
+    if (selectedSkills.length === 0) {
+      toast.error('Please select at least one skill.')
+      return false
+    }
+
+    if (selectedLayers.length === 0) {
+      toast.error('Please select at least one layer.')
+      return false
+    }
+
+    if (!selectedProvider) {
+      toast.error('Please select a provider.')
+      return false
+    }
+
     const nameExists = savedAgents.some(
       existing => 
         existing.name.trim().toLowerCase() === agentName.trim().toLowerCase() &&

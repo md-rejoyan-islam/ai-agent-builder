@@ -61,7 +61,7 @@ const SavedAgentsList = () => {
                 const profileName = data?.agentProfiles.find(p => p.id === agent.profileId)?.name || '—'
                 return (
                   <tr
-                    key={index}
+                    key={agent.name}
                     className="border-b border-surface-800/40 last:border-none transition-colors hover:bg-surface-800/30"
                   >
                     <td className="px-4 py-3 text-surface-600 font-medium">{index + 1}</td>

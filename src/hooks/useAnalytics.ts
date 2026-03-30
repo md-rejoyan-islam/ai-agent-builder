@@ -8,15 +8,17 @@ export const useAnalytics = (agentName: string) => {
   }, [agentName]);
 
   useEffect(() => {
-    const analyticsInterval = setInterval(() => {
-      const currentName = agentNameRef.current;
-      if (currentName !== '') {
-        console.log(`[Analytics Heartbeat] User is working on agent named: "${currentName}"`);
-      } else {
-        console.log(`[Analytics Heartbeat] User is working on an unnamed agent draft...`);
-      }
-    }, 8000);
+    if (import.meta.env.DEV) {
+      const analyticsInterval = setInterval(() => {
+        const currentName = agentNameRef.current;
+        if (currentName !== '') {
+          console.log(`[Analytics Heartbeat] User is working on agent named: "${currentName}"`);
+        } else {
+          console.log(`[Analytics Heartbeat] User is working on an unnamed agent draft...`);
+        }
+      }, 8000);
 
-    return () => clearInterval(analyticsInterval);
+      return () => clearInterval(analyticsInterval);
+    }
   }, []);
 };

@@ -37,7 +37,7 @@ export interface AgentContextValue {
   data: AgentData | null
   loading: boolean
   error: string | null
-  fetchAPI: () => void
+  fetchAPI: () => Promise<void>
 
   selectedProfile: string
   setSelectedProfile: (id: string) => void

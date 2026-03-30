@@ -95,7 +95,8 @@ const AgentBuilder = () => {
             return (
               <div key={step.key} className="flex items-center flex-1 last:flex-initial">
                 <button onClick={() => {
-                  if (idx <= currentStep || isStepComplete(STEPS[currentStep].key)) setCurrentStep(idx)
+                  const canNavigate = idx <= currentStep || (idx === currentStep + 1 && isStepComplete(STEPS[currentStep].key))
+                  if (canNavigate) setCurrentStep(idx)
                 }} className="flex flex-col items-center gap-1.5 group relative">
                   <div className={`h-9 w-9 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 border-2
                     ${isActive ? 'border-primary-500 bg-primary-500 text-white shadow-lg shadow-primary-500/30 scale-110'
