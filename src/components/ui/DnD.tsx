@@ -1,4 +1,4 @@
-import { useDraggable, useDroppable } from '@dnd-kit/core'
+import { useDraggable, useDroppable } from '@dnd-kit/core';
 
 export const DraggableItem = ({ id, children }: { id: string; children: React.ReactNode }) => {
   const { attributes, listeners, setNodeRef, isDragging } = useDraggable({ id })
@@ -11,11 +11,11 @@ export const DraggableItem = ({ id, children }: { id: string; children: React.Re
   )
 }
 
-export const DroppableZone = ({ id, children, isEmpty }: { id: string; children: React.ReactNode; isEmpty: boolean }) => {
+export const DroppableZone = ({ id, children, isEmpty, className = '' }: { id: string; children: React.ReactNode; isEmpty: boolean; className?: string }) => {
   const { isOver, setNodeRef, active } = useDroppable({ id })
   return (
     <div ref={setNodeRef}
-      className={`rounded-xl border-2 border-dashed p-4 min-h-[240px] transition-all duration-200
+      className={`rounded-xl border-2 border-dashed p-4 min-h-[400px] transition-all duration-200 ${className}
         ${isOver && active ? 'border-accent-500/60 bg-accent-500/8 scale-[1.01]' : ''}
         ${active && !isOver ? 'border-primary-500/40 bg-primary-500/5' : ''}
         ${!active ? 'border-surface-700/40 bg-surface-800/20' : ''}

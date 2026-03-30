@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { DndContext, DragOverlay, PointerSensor, useSensor, useSensors, type DragStartEvent, type DragEndEvent } from '@dnd-kit/core'
+import { snapCenterToCursor } from '@dnd-kit/modifiers'
 import { useAgentContext } from '../../context/AgentContext'
 import { DraggableItem, DroppableZone } from '../ui/DnD'
 
@@ -114,12 +115,12 @@ export const LayersStep = () => {
               </div>
             </div>
 
-            <div>
+            <div className="flex flex-col h-full">
               <h4 className="text-xs font-bold uppercase tracking-wider text-violet-400 mb-3 flex items-center gap-2">
                 <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
                 Selected ({selectedLayers.length})
               </h4>
-              <DroppableZone id="layers-drop" isEmpty={selectedLayers.length === 0}>
+              <DroppableZone id="layers-drop" isEmpty={selectedLayers.length === 0} className="flex-1">
                 {selectedLayers.map(id => {
                   const layer = data.layers.find(la => la.id === id)
                   return (
@@ -135,9 +136,9 @@ export const LayersStep = () => {
               </DroppableZone>
             </div>
           </div>
-          <DragOverlay dropAnimation={{ duration: 200, easing: 'ease-out' }}>
+          <DragOverlay dropAnimation={{ duration: 200, easing: 'ease-out' }} modifiers={[snapCenterToCursor]}>
             {activeId && activeLayer ? (
-              <div className="rounded-xl border border-violet-500/60 bg-gradient-to-r from-surface-800/90 to-violet-400/30 p-3 flex items-start gap-3 shadow-2xl shadow-violet-500/20 cursor-grabbing w-[280px] scale-95 opacity-95">
+              <div className="rounded-xl border border-violet-500/60 bg-gradient-to-r from-surface-800/90 to-violet-400/30 p-3 flex items-start gap-3 shadow-2xl shadow-violet-500/20 cursor-grabbing w-[280px] transition-transform opacity-95">
                 <div className="mt-1 flex flex-col gap-0.5 text-violet-400">
                   <span className="block h-0.5 w-3.5 bg-current rounded" />
                   <span className="block h-0.5 w-3.5 bg-current rounded" />
